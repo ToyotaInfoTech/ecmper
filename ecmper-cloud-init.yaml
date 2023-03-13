@@ -1,0 +1,54 @@
+timezone: Asia/Tokyo
+
+### Update apt database on first boot
+package_update: true
+### Run apt or yum upgrade
+package_upgrade: true
+
+packages:
+  - automake
+  - bison
+  - build-essential
+  - clang
+  - cmake
+  - flex
+  - g++
+  - gcc-multilib
+  - libboost-dev
+  - libboost-filesystem-dev
+  - libboost-program-options-dev
+  - libboost-system-dev
+  - libboost-test-dev
+  - libboost-thread-dev
+  - libelf-dev
+  - libevent-dev
+  - libgmp-dev
+  - libpcap-dev
+  - libssl-dev
+  - libtool
+  - linux-tools-common
+  - linux-tools-generic
+  - llvm
+  - pkg-config
+  - python3-pip
+  - tcpdump
+  - nginx
+  - httpie
+  - apache2-utils
+  ### Install XDP prerequisites
+  # Current implementation of ECMP-ER server side XDP program use BCC (`bcc/libbpf.h`)
+  # `/usr/include/bcc/libbpf.h` is included in `libbpfcc-dev`
+  # linux-tools and linux-headers are installed automatically
+  #- linux-tools-$(uname -r)
+  #- linux-headers-$(uname -r)
+  - bpfcc-tools
+  - libbpfcc-dev
+  - libbpf-dev
+  
+
+runcmd: 
+  - cd /home/ubuntu
+  ### Install controller prerequisites
+  - cd /home/ubuntu
+  - pip3 install p4runtime-shell
+  - pip3 install Flask
